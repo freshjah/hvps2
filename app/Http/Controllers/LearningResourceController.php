@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LearningResource;
+use App\Models\ResourceType;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -14,18 +15,19 @@ class LearningResourceController extends Controller
      */
     public function index(Service $service)
     {
-        return view('resources.index', compact('service'));
+        $types = ResourceType::all();
+        $service->load('resources');
+
+        return view('resources.index', compact('service','types'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Service $service)
+
+    public function create(Service $service, ResourceType $type)
     {
-        return view('resources.create', compact('service'));
+        return view('resources.create', compact('service','type'));
     }
 
-    public function store(Request $request, Service $service): RedirectResponse
+    public function store(Request $request, Service $service, ResourceType $type): RedirectResponse
     {
         // Validate the incoming file. Refuses anything bigger than 2048 kilobyes (=2MB)
         $request->validate([
@@ -38,13 +40,14 @@ class LearningResourceController extends Controller
         $filePath = $file->store('uploads', 'public');
 
         // Store file information in the database       
-        $uploadedFile = new LearningResource();
-        $uploadedFile->type = $request->type;
-        $uploadedFile->name = $request->name;
-        $uploadedFile->filename = $fileName;
-        $uploadedFile->original_name = $file->getClientOriginalName();
-        $uploadedFile->file_path = $filePath;
-        $uploadedFile->save();
+        $resource = new LearningResource();
+        $resource->service_id = $request->service_id;
+        $resource->resource_type_id = $request->type_id;
+        $resource->name = $request->name;
+        $resource->filename = $fileName;
+        $resource->original_name = $file->getClientOriginalName();
+        $resource->file_path = $filePath;
+        $resource->save();
         
 
         // Redirect back to the index page with a success message

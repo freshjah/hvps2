@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('learning_resources', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->foreignId('service_id')->index();
+            $table->foreignId('resource_type_id')->index();
             $table->string('name');
             $table->string('filename');
             $table->string('original_name');

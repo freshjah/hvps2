@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-8">
         <div class="grid grid-cols-2 gap-4 sm:px-6 lg:px-8">
             @foreach( $services as $service)
                 <a

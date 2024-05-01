@@ -4,7 +4,7 @@
             {{ $service->name }}
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="py-8">
         <div class="grid grid-cols-1 gap-4 sm:px-6 lg:px-8">
             <div class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] dark:bg-zinc-900 dark:ring-zinc-800 dark:text-white/70 dark:ring-zinc-700">
                 <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
@@ -12,12 +12,13 @@
                 </div>
 
                 <div class="pt-3 sm:pt-5">
-                    <h2 class="text-xl font-semibold text-black dark:text-white">{{app('request')->input('type')}}</h2>
+                    <h2 class="text-xl font-semibold text-black dark:text-white">{{ $type->name }}</h2>
 
                     <div class="">
                         <form action="{{route('services.resources.store', $service->id)}}"" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="type" value="{{app('request')->input('type')}}"/>
+                            <input type="hidden" name="type_id" value="{{ $type->id }}"/>
+                            <input type="hidden" name="service_id" value="{{ $service->id }}"/>
                             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-4">
                                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>

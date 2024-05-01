@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function(){
 
-    Route::get('/dashboard', [FrontendController::class, 'home'])->name('dashboard');
+    Route::get('/dashboard', [FrontendController::class, 'dashboard'])->name('dashboard');
+    
     Route::resource('services', ServiceController::class);
-    Route::resource('services.resources', LearningResourceController::class)->shallow();
+    Route::resource('services.resources', LearningResourceController::class)->except(['create'])->shallow();
+    Route::get('/services/{service}/resources/type/{type}/create', [LearningResourceController::class, 'create'])->name('services.resources.create');
 
     /*
     Route::view('/system', 'system.index')->name('system.index');
