@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
     <div class="py-8">
+        @if ($errors->any())
+            <div class="bg-white text-red-800 font-extrabold">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="grid grid-cols-1 gap-4 sm:px-6 lg:px-8">
             <div class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] dark:bg-zinc-900 dark:ring-zinc-800 dark:text-white/70 dark:ring-zinc-700">
                 <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
@@ -47,7 +56,7 @@
                                                 </label>
                                                 <p class="pl-1">or drag and drop</p>
                                             </div>
-                                            <p class="text-xs leading-5 text-gray-600">PNG, JPG, PDF up to 2MB</p>
+                                            <p class="text-xs leading-5 text-gray-600">MPEG, ZIP, PDF up to 20MB</p>
                                             </div>
                                         </div>
                                     </div>

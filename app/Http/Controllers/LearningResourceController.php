@@ -31,7 +31,7 @@ class LearningResourceController extends Controller
     {
         // Validate the incoming file. Refuses anything bigger than 2048 kilobyes (=2MB)
         $request->validate([
-            'file_upload' => 'required|mimes:pdf,jpg,png|max:2048',
+            'file_upload' => 'required|mimes:pdf,zip,mpeg|max:20480',
         ]);
 
         // Store the file in storage\app\public folder
